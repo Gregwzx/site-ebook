@@ -1,0 +1,133 @@
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+/* Variáveis globais de tema */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.147 0.004 49.25);
+
+  --primary: oklch(0.55 0.16 160);
+  --primary-foreground: oklch(0.985 0.001 106.423);
+
+  --secondary: oklch(0.97 0.001 106.424);
+  --secondary-foreground: oklch(0.216 0.006 56.043);
+
+  --accent: oklch(0.97 0.001 106.424);
+  --accent-foreground: oklch(0.216 0.006 56.043);
+
+  --muted: oklch(0.97 0.001 106.424);
+  --muted-foreground: oklch(0.553 0.013 58.071);
+
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --border: oklch(0.923 0.003 48.717);
+  --input: oklch(0.923 0.003 48.717);
+  --ring: oklch(0.55 0.16 160);
+
+  --radius: 0.75rem;
+}
+
+/* Estilos base */
+@layer base {
+  * {
+    @apply border-border;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-emerald-500 ring-offset-2 ring-offset-background;
+  }
+}
+
+/* Utilidades visuais */
+@layer utilities {
+  @keyframes gradient {
+    0%, 100% { background-position: left center; }
+    50% { background-position: right center; }
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+
+  .glow {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+  }
+
+  .glass {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+}
+
+/* Componentes reutilizáveis */
+@layer components {
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl;
+  }
+
+  .gradient-border {
+    background:
+      linear-gradient(var(--background), var(--background)) padding-box,
+      linear-gradient(135deg, #10b981, #06b6d4) border-box;
+    border: 2px solid transparent;
+  }
+
+  .hero-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900;
+  }
+}
+
+/* Ajustes finais */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+img {
+  @apply max-w-full h-auto;
+}
+
+@media (max-width: 640px) {
+  * {
+    animation-duration: 0.5s !important;
+  }
+}
